@@ -27,6 +27,9 @@ export const datos = [
       { id: 4, word: "AGUA", answer: [4, 7, 10, 13], strike: false },
     ],
     className: "grid grid-cols-4",
+
+    background:
+      "bg-gradient-to-b from-red-500 to-orange-400 min-h-screen flex items-center justify-center",
     position: [1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 15, 16],
     isSelected: false,
   },
@@ -69,6 +72,9 @@ export const datos = [
       { id: 5, word: "PERRO", answer: [1, 7, , 13, 19, 25], strike: false },
     ],
     className: "grid grid-cols-5",
+    background:
+      "bg-gradient-to-r from-yellow-400 to-purple-400 min-h-screen flex items-center justify-center",
+
     position: [
       1, 2, 3, 4, 5, 6, 7, 10, 12, 13, 15, 18, 19, 20, 21, 22, 23, 24, 25,
     ],
@@ -131,6 +137,8 @@ export const datos = [
     ],
 
     className: "grid grid-cols-6",
+    background:
+      "bg-gradient-radial from-blue-200 via-blue-500 to-blue-800 min-h-screen flex items-center justify-center",
 
     position: [
       1, 3, 5, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26, 27,
@@ -142,6 +150,8 @@ export const datos = [
   {
     id: 4,
     column: 7,
+    background:
+      "bg-gradient-to-b from-pink-500 to-violet-500 min-h-screen flex items-center justify-center",
     puzzle: [
       "L",
       "Z",
