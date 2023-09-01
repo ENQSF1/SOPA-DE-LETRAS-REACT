@@ -1,5 +1,5 @@
 import Soup from "@/components/Soup";
-import { datos } from "./datos";
+import { datos } from "../datos/datos";
 import Welcome from "@/components/Welcome";
 import { useState, useEffect } from "react";
 import { useAppContext } from "@/state/soupstate";
