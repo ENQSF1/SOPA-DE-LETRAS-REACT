@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-export default function Box({ letter, id, handleCounter }) {
-  const [isSelected, setIsSelected] = useState(false);
-
+export default function Box({
+  letter,
+  id,
+  handleCounter,
+  isSelected,
+  handleisSelected,
+}) {
   const handleSelect = () => {
-    setIsSelected(!isSelected);
+    handleisSelected(id, isSelected);
     handleCounter(id, isSelected);
   };
   return (

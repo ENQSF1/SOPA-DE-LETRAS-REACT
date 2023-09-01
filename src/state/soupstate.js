@@ -1,4 +1,3 @@
-import { reset } from "canvas-confetti";
 import { createContext, useContext, useState } from "react";
 const AppContext = createContext({
   points: 0,
@@ -11,12 +10,12 @@ const AppContext = createContext({
 });
 
 export default function SoupContext({ children }) {
-  const [points, setPoints] = useState(0);
+  const [points, setPoints] = useState(10);
   const [ui, setUi] = useState(1);
   const [prevUi, setPrevUi] = useState(1);
 
-  function updatePoints() {
-    setPoints(points + 50);
+  function updatePoints(number) {
+    setPoints(points + number);
   }
 
   function updateUi(number) {

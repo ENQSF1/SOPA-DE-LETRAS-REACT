@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "./Box";
 import Listofwords from "./Listofwords";
-export default function Matrix({ object, handleCounter, handlestrike }) {
+export default function Matrix({ object, handleCounter, handleisSelected }) {
   return (
     <>
       <div className=" border-black rounded-lg m-2 mx-auto bg-white">
@@ -25,12 +25,14 @@ export default function Matrix({ object, handleCounter, handlestrike }) {
       <div className="flex justify-center ">
         <div className="flex items-center justify-center border border-black rounded-lg  bg-white">
           <div className={object.className}>
-            {object.puzzle.map((letter, index) => (
+            {object.puzzle.map((letter) => (
               <Box
-                key={index}
-                letter={letter}
+                key={letter.id}
+                letter={letter.letter}
                 handleCounter={handleCounter}
-                id={index + 1}
+                id={letter.id}
+                isSelected={letter.isSelected}
+                handleisSelected={handleisSelected}
               />
             ))}
           </div>

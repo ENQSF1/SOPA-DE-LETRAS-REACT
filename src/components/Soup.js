@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { useAppContext } from "@/state/soupstate";
 import { BiSolidCoin } from "react-icons/bi";
 import { GoArrowLeft } from "react-icons/go";
+import { FiSearch } from "react-icons/fi";
 
 export default function Soup({ level, ui }) {
   const [counter, setCounter] = useState([]);
@@ -19,10 +20,12 @@ export default function Soup({ level, ui }) {
   }, [level]);
 
   const handleCounter = (id, isSelected) => {
-    if (isSelected === false) {
+    const estaEnCounter = counter.includes(id);
+
+    if (isSelected === false && !estaEnCounter) {
       setCounter((prevCounter) => [...prevCounter, id]);
     }
-    if (isSelected === true) {
+    if (isSelected === true && estaEnCounter) {
       setCounter((prevCounter) => prevCounter.filter((item) => item !== id));
     }
   };
@@ -38,8 +41,8 @@ export default function Soup({ level, ui }) {
         confetti();
         setTimeout(() => {
           setModal(true);
-          soup.updatePoints();
-        }, 1000); // Retrasa la ejecución durante 1 segundo (1000 milisegundos)
+          soup.updatePoints(50);
+        }, 1000);
       }
     }
   }, [counter]);
@@ -66,6 +69,48 @@ export default function Soup({ level, ui }) {
     soup.updateUi(1);
     setCopyLevel(null);
   };
+
+  const handleisSelected = (id, isSelected) => {
+    const updatedObj = { ...copyLevel };
+    const objetoEncontrado = updatedObj.puzzle.find(
+      (objeto) => objeto.id === id
+    );
+
+    if (objetoEncontrado) {
+      objetoEncontrado.isSelected = !isSelected;
+    }
+
+    setCopyLevel(updatedObj);
+  };
+
+  const showWord = () => {
+    if (soup.points >= 20) {
+      soup.updatePoints(-20);
+      const updatedObj = { ...copyLevel };
+      let primeraPalabraNoCumplida = false;
+
+      updatedObj.words.forEach((word) => {
+        if (!primeraPalabraNoCumplida) {
+          const todosPresentes = word.answer.every((numero) =>
+            counter.includes(numero)
+          );
+
+          if (!todosPresentes) {
+            word.answer.forEach((id) => {
+              const letra = updatedObj.puzzle.find((letra) => letra.id === id);
+              if (letra) {
+                letra.isSelected = true;
+                handleCounter(letra.id, false);
+                primeraPalabraNoCumplida = true;
+              }
+            });
+          }
+        }
+      });
+      setCopyLevel(updatedObj);
+    }
+  };
+
   return (
     <>
       <div>
@@ -80,9 +125,8 @@ export default function Soup({ level, ui }) {
 
           <div class=" bg-gradient-to-br from-blue-500 to-purple-500 text-white flex items-center justify-center rounded-lg shadow-lg text-2xl font-semibold  p-4 m-2 ">
             <>
-              {" "}
               <BiSolidCoin className="mr-2" />
-              {soup.points}{" "}
+              {soup.points}
             </>
           </div>
         </div>
@@ -97,9 +141,23 @@ export default function Soup({ level, ui }) {
                   NIVEL {soup.ui - 1}
                 </p>
 
-                <Matrix object={level} handleCounter={handleCounter} />
+                <Matrix
+                  object={level}
+                  handleCounter={handleCounter}
+                  handleisSelected={handleisSelected}
+                />
               </>
             )}
+            <div
+              onClick={showWord}
+              className="text-2xl font-bold text-white m-2 p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg shadow-lg text-center flex items-center justify-center flex-col w-64 mx-auto"
+            >
+              <FiSearch className="text-5xl mx-auto mb-4" />
+              <p className="text-xl font-bold flex items-center justify-center">
+                Usa la ayuda te costara 20 monedas
+              </p>
+              <BiSolidCoin className="ml-2 text-2xl " />
+            </div>
           </div>
         </div>
       </div>
