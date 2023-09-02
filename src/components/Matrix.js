@@ -1,7 +1,12 @@
 import React from "react";
 import Box from "./Box";
 import Listofwords from "./Listofwords";
-export default function Matrix({ object, handleCounter, handleisSelected }) {
+export default function Matrix({
+  object,
+  handleCounter,
+  handleisSelected,
+  grid,
+}) {
   return (
     <>
       <div className=" border-black rounded-lg m-2 mx-auto bg-white">
@@ -24,7 +29,7 @@ export default function Matrix({ object, handleCounter, handleisSelected }) {
       </div>
       <div className="flex justify-center ">
         <div className="flex items-center justify-center border border-black rounded-lg  bg-white">
-          <div className={object.className}>
+          <div className={grid}>
             {object.puzzle.map((letter) => (
               <Box
                 key={letter.id}
